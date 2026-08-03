@@ -3,3 +3,8 @@ OOP Final Project Repo
 
 ## Use Case Diagram
 ![PlantUML diagram](https://www.plantuml.com/plantuml/svg/TP9DReCm48NtFiKe-t20AaAAOAfiAg6Guaqt5amIAmHNWsbJLRrx8T3KTiZEUj_p_DUqjs0Di3uSBLIQgRJQD4AeqXg6rvPOY45KpQ4cM3nhksDLdXRmBKJNKgdQNYqqVKB6PgzhMe1geSWScZ0fInvFid-CbROUH0UcL5FmDvs9BGsVJ6V7s3A8xKAKTx5TdCgWAHSMyZunNeXBtKvTOV3RemK6TNaK7RgkgXjyQ_hjk5Mi7UEMpkQ37E-UpTbpR_6kNozjYavFkLNiZojtvd7TEoGTCpM-Q-UE_4Nn2NAoa9Zp-v3mQdd94p4_MjZejZ-rhsd46wSSKbmUPtrvx_iHOZXFM2xZuTvkx_wsH971AehwIu8dMAteOgcfubZWAAU1_6SlfAzFSXBASWm-xouma75q1pAESehpfIIXZcFID4WwoMkSbRSFekVoqG0sOQkRwKC0H3vcs8N36OGeYeU5Nu5kohghg2U_)
+
+## Running the Program
+- **Windows:** Execute `run.bat`
+- **macOS:** Execute `run.command`
+- **Linux:** Run:```./run```
