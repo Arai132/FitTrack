@@ -3,6 +3,12 @@ package controller;
 import javax.swing.JOptionPane;
 
 import facade.FitTrackFacade;
+import view.ActiveWorkoutFrame;
+import view.ExerciseFrame;
+import view.HistoryFrame;
+import view.MainFrame;
+import view.ProfileFrame;
+import view.WorkoutFrame;
 
 /**
  * Controller – reacts to user actions from the views

@@ -7,6 +7,7 @@ import model.Exercise;
 import model.Profile;
 import model.Workout;
 import model.WorkoutExercise;
+import model.WorkoutSession;
 import strategy.SearchStrategy;
 
 public class FitTrackFacade {
