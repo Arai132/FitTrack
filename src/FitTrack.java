@@ -4,12 +4,19 @@
 import javax.swing.SwingUtilities;
 
 import controller.MainController;
+import data.DataStore;
 import facade.FitTrackFacade;
 import view.MainFrame;
 
 public class FitTrack {
     public static void main(String[] args) {
+        // 1. Load previous data (if any)
+        DataStore.getInstance().load();
 
+        // 2. Auto-save when the JVM exits (window close, System.exit, etc.)
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            DataStore.getInstance().save();
+        }));
         // maybe set the loook or something here.
 
         // these don't exist yet, add later.

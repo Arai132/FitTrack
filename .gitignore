@@ -1,2 +1,6 @@
-# This file is .gitignore
+# compiled classes
+out/
 *.class
+
+# app data (local only)
+data/
