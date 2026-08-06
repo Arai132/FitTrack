@@ -7,7 +7,7 @@ import controller.MainController;
 import facade.FitTrackFacade;
 import view.MainFrame;
 
-public class Main {
+public class FitTrack {
     public static void main(String[] args) {
 
         // maybe set the loook or something here.
