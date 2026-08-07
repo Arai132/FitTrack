@@ -1,5 +1,6 @@
 # Use Case Diagram
 ```plantuml
+@startuml
 left to right direction
 
 actor User
@@ -67,6 +68,7 @@ TCW ..> MSC : <<include>>
 Non-GUI layers only (model, patterns, persistence, facade) — `controller`/`view` (Swing) intentionally omitted for now.
 
 ```plantuml
+@startuml
 left to right direction
 skinparam classAttributeIconSize 0
 
