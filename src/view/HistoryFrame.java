@@ -57,9 +57,9 @@ public class HistoryFrame extends JFrame {
         add(scroll, BorderLayout.CENTER);
 
         JPanel bottom = new JPanel(new FlowLayout());
-        JButton btnClose = new JButton("Close");
-        btnClose.addActionListener(e -> dispose());
-        bottom.add(btnClose);
+        JButton btnBack = new JButton("Back");
+        btnBack.addActionListener(e -> dispose());
+        bottom.add(btnBack);
         add(bottom, BorderLayout.SOUTH);
 
         showAll();

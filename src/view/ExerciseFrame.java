@@ -52,17 +52,17 @@ public class ExerciseFrame extends JFrame {
         JButton btnCreate = new JButton("Create");
         JButton btnUpdate = new JButton("Update Selected");
         JButton btnDelete = new JButton("Delete Selected");
-        JButton btnClose = new JButton("Close");
+        JButton btnBack = new JButton("Back");
 
         btnCreate.addActionListener(e -> createExercise());
         btnUpdate.addActionListener(e -> updateExercise());
         btnDelete.addActionListener(e -> deleteExercise());
-        btnClose.addActionListener(e -> dispose());
+        btnBack.addActionListener(e -> dispose());
 
         buttons.add(btnCreate);
         buttons.add(btnUpdate);
         buttons.add(btnDelete);
-        buttons.add(btnClose);
+        buttons.add(btnBack);
         add(buttons, BorderLayout.SOUTH);
 
         exerciseList.addListSelectionListener(e -> {

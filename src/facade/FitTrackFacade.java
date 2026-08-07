@@ -87,7 +87,10 @@ public class FitTrackFacade {
         persist();
     }
 
-    /** Cascades into every workout that references the exercise, not just the library list. */
+    /**
+     * Cascades into every workout that references the exercise, not just the
+     * library list.
+     */
     public void deleteExercise(Exercise exercise) {
         Profile p = requireProfile();
         for (Workout w : p.getWorkouts()) {

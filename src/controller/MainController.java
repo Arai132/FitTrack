@@ -1,5 +1,9 @@
 package controller;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import facade.FitTrackFacade;
@@ -20,6 +24,7 @@ public class MainController {
 
     private final FitTrackFacade facade;
     private MainFrame mainFrame;
+    private JFrame currentChildFrame;
 
     public MainController(FitTrackFacade facade) {
         this.facade = facade;
@@ -29,22 +34,49 @@ public class MainController {
         this.mainFrame = frame;
     }
 
+    private void showChildFrame(JFrame frame) {
+        if (currentChildFrame != null) {
+            currentChildFrame.dispose();
+            currentChildFrame = null;
+        }
+        if (mainFrame != null && mainFrame.isVisible()) {
+            mainFrame.setVisible(false);
+        }
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (frame == currentChildFrame) {
+                    currentChildFrame = null;
+                    if (mainFrame != null) {
+                        mainFrame.setVisible(true);
+                        refreshMain();
+                    }
+                }
+            }
+        });
+
+        currentChildFrame = frame;
+        frame.setVisible(true);
+    }
+
     // ----- navigation -----
 
     public void openProfileManager() {
-        new ProfileFrame(facade, this).setVisible(true);
+        showChildFrame(new ProfileFrame(facade, this));
     }
 
     public void openExercises() {
         if (!ensureProfile())
             return;
-        new ExerciseFrame(facade).setVisible(true);
+        showChildFrame(new ExerciseFrame(facade));
     }
 
     public void openWorkouts() {
         if (!ensureProfile())
             return;
-        new WorkoutFrame(facade).setVisible(true);
+        showChildFrame(new WorkoutFrame(facade));
     }
 
     public void openActiveWorkout() {
@@ -57,13 +89,13 @@ public class MainController {
             return;
         }
         // ActiveWorkoutFrame will register itself as WorkoutObserver
-        new ActiveWorkoutFrame(facade).setVisible(true);
+        showChildFrame(new ActiveWorkoutFrame(facade));
     }
 
     public void openHistory() {
         if (!ensureProfile())
             return;
-        new HistoryFrame(facade).setVisible(true);
+        showChildFrame(new HistoryFrame(facade));
     }
 
     /** Called by ProfileFrame after create / switch / delete */

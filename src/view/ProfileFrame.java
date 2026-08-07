@@ -45,7 +45,7 @@ public class ProfileFrame extends JFrame {
         this.facade = facade;
         this.mainController = mainController;
 
-        setSize(560, 360);
+        setSize(680, 380);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
@@ -89,19 +89,19 @@ public class ProfileFrame extends JFrame {
         JButton btnSwitch = new JButton("Switch To Selected");
         JButton btnUpdate = new JButton("Update Selected");
         JButton btnDelete = new JButton("Delete Selected");
-        JButton btnClose = new JButton("Close");
+        JButton btnBack = new JButton("Back");
 
         btnCreate.addActionListener(e -> createProfile());
         btnSwitch.addActionListener(e -> switchProfile());
         btnUpdate.addActionListener(e -> updateProfile());
         btnDelete.addActionListener(e -> deleteProfile());
-        btnClose.addActionListener(e -> dispose());
+        btnBack.addActionListener(e -> dispose());
 
         buttons.add(btnCreate);
         buttons.add(btnSwitch);
         buttons.add(btnUpdate);
         buttons.add(btnDelete);
-        buttons.add(btnClose);
+        buttons.add(btnBack);
         add(buttons, BorderLayout.SOUTH);
 
         profileList.addListSelectionListener(e -> {

@@ -84,15 +84,15 @@ public class WorkoutFrame extends JFrame {
 
         JButton btnAdd = new JButton("<- Add Exercise");
         JButton btnRemove = new JButton("Remove Exercise ->");
-        JButton btnClose = new JButton("Close");
+        JButton btnBack = new JButton("Back");
 
         btnAdd.addActionListener(e -> addExercise());
         btnRemove.addActionListener(e -> removeExercise());
-        btnClose.addActionListener(e -> dispose());
+        btnBack.addActionListener(e -> dispose());
 
         bottom.add(btnAdd);
         bottom.add(btnRemove);
-        bottom.add(btnClose);
+        bottom.add(btnBack);
         add(bottom, BorderLayout.SOUTH);
 
         workoutList.addListSelectionListener(e -> {
