@@ -41,7 +41,7 @@ public class ActiveWorkoutFrame extends JFrame implements WorkoutObserver {
         super("FitTrack - Track Current Workout");
         this.facade = facade;
 
-        setSize(580, 500);
+        setSize(1000, 500);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(8, 8));
 
