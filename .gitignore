@@ -1,3 +1,4 @@
 # This file is .gitignore
+out/
 *.class
 *.ser

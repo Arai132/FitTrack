@@ -7,12 +7,8 @@ import controller.MainController;
 import facade.FitTrackFacade;
 import view.MainFrame;
 
-public class Main {
+public class FitTrack {
     public static void main(String[] args) {
-
-        // maybe set the loook or something here.
-
-        // these don't exist yet, add later.
         SwingUtilities.invokeLater(() -> {
             FitTrackFacade facade = new FitTrackFacade(); // creates DataStore + factories
             MainController controller = new MainController(facade);

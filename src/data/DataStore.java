@@ -4,27 +4,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//we store only profiles
-
 import model.Profile;
 
 public class DataStore {
     private static DataStore instance;
 
     private final List<Profile> profiles = new ArrayList<>();
-    private Profile currentProfile; // the one the UI is using
+    private Profile currentProfile;
 
     private DataStore() {
     }
 
-    // the ai put synchronized, but again, this isn't needed even though it is good.
     public static synchronized DataStore getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new DataStore();
+        }
         return instance;
     }
 
-    // ---- all profiles ----
+    // ---- profiles ----
     public List<Profile> getProfiles() {
         return Collections.unmodifiableList(profiles);
     }
@@ -42,14 +40,13 @@ public class DataStore {
         }
     }
 
-    // ---- current profile ----
     public Profile getCurrentProfile() {
         return currentProfile;
     }
 
     public void setCurrentProfile(Profile p) {
         if (p != null && !profiles.contains(p)) {
-            profiles.add(p); // safety
+            profiles.add(p);
         }
         this.currentProfile = p;
     }
