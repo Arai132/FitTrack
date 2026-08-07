@@ -3,16 +3,30 @@ package facade;
 import java.util.List;
 
 import data.DataStore;
+import data.SerializedObjectStore;
 import model.Exercise;
 import model.Profile;
 import model.Workout;
 import model.WorkoutExercise;
 import model.WorkoutSession;
+import report.ExerciseTrendPoint;
+import report.ProgressAnalyzer;
+import report.ProgressSummary;
 import strategy.SearchStrategy;
 
 public class FitTrackFacade {
 
     private final DataStore store = DataStore.getInstance();
+    private final SerializedObjectStore objectStore = new SerializedObjectStore();
+    private final ProgressAnalyzer progressAnalyzer = new ProgressAnalyzer();
+
+    public FitTrackFacade() {
+        if (store.getProfiles().isEmpty()) {
+            for (Profile profile : objectStore.load()) {
+                store.addProfile(profile);
+            }
+        }
+    }
 
     // ===================== PROFILES (multi) =====================
 
@@ -20,6 +34,7 @@ public class FitTrackFacade {
         Profile profile = new Profile(name, heightCm, weightKg);
         store.addProfile(profile);
         store.setCurrentProfile(profile); // new one becomes current
+        persist();
         return profile;
     }
 
@@ -47,10 +62,12 @@ public class FitTrackFacade {
         p.setName(name);
         p.setHeightCm(heightCm);
         p.setCurrentWeightKg(weightKg);
+        persist();
     }
 
     public void deleteProfile(Profile profile) {
         store.removeProfile(profile);
+        persist();
     }
 
     // ===================== EXERCISES (current profile) =====================
@@ -59,6 +76,7 @@ public class FitTrackFacade {
         Profile p = requireProfile();
         Exercise e = new Exercise(name, category);
         p.addExercise(e);
+        persist();
         return e;
     }
 
@@ -66,14 +84,17 @@ public class FitTrackFacade {
         requireProfile();
         exercise.setName(newName);
         exercise.setCategory(newCategory);
+        persist();
     }
 
+    /** Cascades into every workout that references the exercise, not just the library list. */
     public void deleteExercise(Exercise exercise) {
         Profile p = requireProfile();
         for (Workout w : p.getWorkouts()) {
             w.removeExerciseFor(exercise);
         }
         p.removeExercise(exercise);
+        persist();
     }
 
     public List<Exercise> getAllExercises() {
@@ -86,40 +107,47 @@ public class FitTrackFacade {
         Profile p = requireProfile();
         Workout w = new Workout(name);
         p.addWorkout(w);
+        persist();
         return w;
     }
 
     public void updateWorkoutName(Workout workout, String newName) {
         requireProfile();
         workout.setName(newName);
+        persist();
     }
 
     /** Soft-delete – history stays valid */
     public void deleteWorkout(Workout workout) {
         requireProfile();
         workout.archive();
+        persist();
     }
 
     public void reactivateWorkout(Workout workout) {
         requireProfile();
         workout.reactivate();
+        persist();
     }
 
     public void addExerciseToWorkout(Workout workout, Exercise exercise,
             int sets, int reps) {
         requireProfile();
         workout.addExercise(exercise, sets, reps);
+        persist();
     }
 
     public void addExerciseToWorkout(Workout workout, Exercise exercise,
             int sets, int reps, Integer weight) {
         requireProfile();
         workout.addExercise(exercise, sets, reps, weight);
+        persist();
     }
 
     public void removeExerciseFromWorkout(Workout workout, WorkoutExercise we) {
         requireProfile();
         workout.removeExercise(we);
+        persist();
     }
 
     public List<Workout> getActiveWorkouts() {
@@ -149,6 +177,7 @@ public class FitTrackFacade {
 
     public void finishAndSaveSession(WorkoutSession session) {
         requireProfile().addToHistory(session);
+        persist();
     }
 
     // ===================== HISTORY =====================
@@ -161,6 +190,16 @@ public class FitTrackFacade {
         return strategy.search(requireProfile().getHistory(), query);
     }
 
+    // ===================== PROGRESS =====================
+
+    public ProgressSummary getProgressSummary() {
+        return progressAnalyzer.summarize(requireProfile().getHistory());
+    }
+
+    public List<ExerciseTrendPoint> getExerciseTrend(Exercise exercise) {
+        return progressAnalyzer.trendFor(requireProfile().getHistory(), exercise);
+    }
+
     // ===================== helper =====================
 
     private Profile requireProfile() {
@@ -169,5 +208,9 @@ public class FitTrackFacade {
             throw new IllegalStateException("No profile selected. Create or switch to a profile first.");
         }
         return p;
+    }
+
+    private void persist() {
+        objectStore.save(store.getProfiles());
     }
 }
