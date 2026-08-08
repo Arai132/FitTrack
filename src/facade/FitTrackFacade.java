@@ -9,16 +9,12 @@ import model.Profile;
 import model.Workout;
 import model.WorkoutExercise;
 import model.WorkoutSession;
-import report.ExerciseTrendPoint;
-import report.ProgressAnalyzer;
-import report.ProgressSummary;
 import strategy.SearchStrategy;
 
 public class FitTrackFacade {
 
     private final DataStore store = DataStore.getInstance();
     private final SerializedObjectStore objectStore = new SerializedObjectStore();
-    private final ProgressAnalyzer progressAnalyzer = new ProgressAnalyzer();
 
     public FitTrackFacade() {
         if (store.getProfiles().isEmpty()) {
@@ -191,16 +187,6 @@ public class FitTrackFacade {
 
     public List<WorkoutSession> searchHistory(SearchStrategy strategy, String query) {
         return strategy.search(requireProfile().getHistory(), query);
-    }
-
-    // ===================== PROGRESS =====================
-
-    public ProgressSummary getProgressSummary() {
-        return progressAnalyzer.summarize(requireProfile().getHistory());
-    }
-
-    public List<ExerciseTrendPoint> getExerciseTrend(Exercise exercise) {
-        return progressAnalyzer.trendFor(requireProfile().getHistory(), exercise);
     }
 
     // ===================== helper =====================

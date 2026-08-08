@@ -2,3 +2,5 @@
 out/
 *.class
 *.ser
+# getting info about classes. 
+*.py
