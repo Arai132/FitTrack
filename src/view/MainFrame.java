@@ -17,13 +17,11 @@ import model.Profile;
 
 public class MainFrame extends JFrame {
     private final FitTrackFacade facade;
-    private final MainController controller;
     private final JLabel statusLabel;
 
     public MainFrame(FitTrackFacade facade, MainController controller) {
         super("FitTrack - Main Menu");
         this.facade = facade;
-        this.controller = controller;
         controller.setMainFrame(this);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -53,7 +53,7 @@ public class WorkoutFrame extends JFrame {
         JButton btnCreate = new JButton("Create");
         btnCreate.addActionListener(e -> createWorkout());
         top.add(btnCreate);
-        JButton btnArchive = new JButton("Archive Selected");
+        JButton btnArchive = new JButton("Delete Selected");
         btnArchive.addActionListener(e -> archiveWorkout());
         top.add(btnArchive);
         add(top, BorderLayout.NORTH);
@@ -145,7 +145,7 @@ public class WorkoutFrame extends JFrame {
             return;
         }
         int conf = JOptionPane.showConfirmDialog(this,
-                "Archive \"" + sel.getName() + "\"?\nPast sessions stay in history.",
+                "Delete \"" + sel.getName() + "\"?\nPast sessions stay in history.",
                 "Confirm", JOptionPane.YES_NO_OPTION);
         if (conf == JOptionPane.YES_OPTION) {
             facade.deleteWorkout(sel);
